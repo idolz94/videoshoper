@@ -154,7 +154,6 @@ class UserController extends Controller
             return response([
                 'Code' => 0,
                 'Message' => 'Email or Password is not exist',
-                'error' => 'UnAuthorised'
             ],
                 201);
         }
