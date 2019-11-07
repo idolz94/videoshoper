@@ -98,7 +98,32 @@ class UserController extends Controller
         //create thành công thì trả về 1token hợp lệ
         return redirect()->route('users.index')->with('message','update success!');
     }
+    public function updateLicense(Request $request)
+    {
+        $id = $request->id;
+        $type = $request->type;
+        $user = User::find($id);
 
+        $carbonTime = Carbon::createFromFormat('Y-m-d', $user['time']);
+        //dd($carbonTime);
+        if($type == 1) // 1 tháng
+        {
+            $newTime = $carbonTime->add(CarbonInterval::days(30));
+        }
+        else if($type == 2) // 6 tháng
+        { 
+            $newTime = $carbonTime->add(CarbonInterval::days(180));
+        }
+        else if($type == 3) // 12 months
+        { 
+            $newTime = $carbonTime->add(CarbonInterval::days(365));
+        }
+      
+        $user->update(['time' => $newTime->format('Y-m-d')]);
+        return back();
+    }
+
+    
     /**
      * Remove the specified resource from storage.
      *

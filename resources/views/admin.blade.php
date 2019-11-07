@@ -43,7 +43,6 @@
               </tr>
             </thead>
             <tbody  {{$count = 0}}>
-            
               @foreach ($user as $item)
               <tr>
                 <th>{{$count++}}</th>
@@ -58,7 +57,8 @@
                 <th>{{$item->provinces}}</th>
                 <th>{{$item->address}}</th>
                 <th>{{$item->time}}</th>
-                 <th><a href="{{route('users.edit',$item->id)}}" class="btn btn-info">Edit</a></th>
+                 <th><a href="{{route('users.edit',$item->id)}}" class="btn btn-info">Sửa thông tin</a></th>
+                 <th>    <button type="button" class="btn btn-info myTimeDate" data-toggle="modal" data-id="{{$item->id}}"  data-target="#myTime">Gia hạn</button></th>
                 <th>
                   <form action="{{route('users.destroy',$item->id)}}" method="POST">
                     @method('DELETE')
@@ -130,7 +130,33 @@
           </form>
           </div>
         </div>
-
+        <div class="modal fade" id="myTime" role="dialog">
+            @csrf
+              <div class="modal-dialog">
+              <form action="{{route('admin.updateLicense')}}" method="get">
+                  <div class="modal-content">
+                      <input type="hidden" name="id" id="myId">
+                      <div class="modal-header">
+                        <h4> Gia Hạn</h4>
+                      </div>
+                      <div class="modal-body">
+                          <div class="form-group">
+                              <label for="">Gói </label>
+                             <select name="type" class="form-control">
+                               <option value="1">1 Tháng</option>
+                               <option value="2">6 Tháng</option>
+                               <option value="3">12 Tháng</option>
+                             </select>
+                            </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-default" >Save</button>
+                        </div>
+                  </div>
+              </form>
+              </div>
+        </div> 
 <script>
   $('#country').change(function(){
       $("#states option").remove();
@@ -159,5 +185,9 @@
         }
       });
   });
+  $(document).on("click", ".myTimeDate", function () {
+     var id = $(this).data('id');
+     $(".modal-content #myId").val(id);
+});
 </script>
 @endsection
