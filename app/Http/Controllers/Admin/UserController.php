@@ -53,7 +53,7 @@ class UserController extends Controller
         {
             $postAttributes['time'] = $carbonTime->add(CarbonInterval::days(30));
         }
-        dd($postAttributes);
+       // dd($postAttributes);
         $user = User::query()->create($postAttributes);
         //create thành công thì trả về 1token hợp lệ
         $token =  $user->createToken('MyApp')->accessToken; 

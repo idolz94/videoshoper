@@ -225,11 +225,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-<<<<<<< HEAD
-
-    ],
-
-=======
     ],
 
 
@@ -260,5 +255,4 @@ return [
             'password',
         ],
     ],
->>>>>>> 29b43b86229b8c31f6cceb3709c8fc2790350a03
 ];
