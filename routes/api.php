@@ -30,6 +30,9 @@ Route::middleware('auth:api')->group(function () {
         Route::post('country/get', 'UserController@getCountry');
 });
 //Admin
+Route::get('login','Admin\UserController@create');
+Route::post('login','Admin\UserController@login')->name('admin.login');
 Route::resource('users','Admin\UserController');
 Route::get('users/admin/updateLicense','Admin\UserController@updateLicense')->name('admin.updateLicense');
 Route::post('users/country', 'Admin\UserController@getCountry')->name('users.country');
+

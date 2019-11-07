@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\CarbonInterval;
 use Carbon\Carbon;
+use Auth;
 use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
@@ -29,9 +30,24 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('login');
     }
 
+
+    public function login(Request $request)
+    {
+        $login = [
+            'email' => $request['email'],
+            'password' => $request['password'],
+        ];
+        if(!Auth::attempt($login)){
+            return back()->with('message', 'IT WORKS!');
+          //  return back()->with('success', ['Email or Password not exits']);   
+        }
+        // $user = $request->user();
+        // $token =  $user->createToken('MyApp')->accessToken; 
+        return redirect()->route('users.index');
+    }
     /**
      * Store a newly created resource in storage.
      *
