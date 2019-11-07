@@ -35,6 +35,7 @@
                 <th>Tên</th>
                 <th>Email</th>
                 <th>Số Phone</th>
+                <th>Quốc gia</th>
                 <th>Tỉnh thành</th>
                 <th>Địa Chỉ</th>
                 <th>Thời hạn</th>
@@ -49,6 +50,11 @@
                 <th>{{$item->name}}</th>
                 <th>{{$item->email}}</th>
                 <th>{{$item->phone}}</th>
+                @foreach ($listCountry as $key => $country)
+                  @if($item->countries === $key)
+                    <th>{{$country}}</th>
+                  @endif
+                @endforeach
                 <th>{{$item->provinces}}</th>
                 <th>{{$item->address}}</th>
                 <th>{{$item->time}}</th>
@@ -72,6 +78,7 @@
 
       <!-- Modal -->
       <div class="modal fade" id="myModal" role="dialog">
+        @csrf
           <div class="modal-dialog">
           <form action="{{route('users.store')}}" method="post">
             <!-- Modal content-->
@@ -96,7 +103,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Quốc Gia</label>
-                            <select name="country" id="country" class="form-control" >
+                            <select name="countries" id="country" class="form-control" >
                                 @foreach ($listCountry as $key => $country)
                             <option value="{{$key}}">{{$country}}</option>
                                 @endforeach

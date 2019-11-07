@@ -56,7 +56,6 @@ class UserController extends Controller
        // dd($postAttributes);
         $user = User::query()->create($postAttributes);
         //create thành công thì trả về 1token hợp lệ
-        $token =  $user->createToken('MyApp')->accessToken; 
         return redirect()->route('users.index')->with('message','Created Success!');
         
     }
@@ -80,7 +79,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $jsonCountry = file_get_contents(public_path('country.json'));
+        $listCountry = json_decode($jsonCountry, true);
+        $user = User::findOrFail($id);
+        return view('user.form',compact('user','listCountry'));
     }
 
     /**
@@ -90,43 +92,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function update(Request $request, $id)
-    // {
-    //     $userLogin = [
-    //         'email' => $request['email'],
-    //         'password' => $request['password'],
-    //     ];
-        
-    //      // kiểm tra email  đã tồn tại ?
-    //      $user = User::query()->where('email', $userLogin['email'])->first();
-    //     // dd($user);
-    //     if(!$user)
-    //     {
-    //               // Chưa tồn tại user
-    //         return response([
-    //             'Code' => 0,
-    //             'Message' => 'User is not exist'
-    //         ],
-    //             201);
-    //     }elseif (!Auth::attempt($userLogin)) {
-    //           // Sai password or Email
-    //         return response([
-    //             'Code' => 0,
-    //             'Message' => 'Password or Email is not correct'
-    //         ],
-    //             200);
-    //     }
-    //     //Nếu đúng sẽ trả về thời gian server, thời gian hết hạn premium
-    //     $time = date('Y-m-d',  time());
-    //     $time_premium = $user['time'];
-    //     return response([
-    //         'Code' => 1,
-    //         'Message' => 'Login successfully',
-    //         'TimeServer' => $time,
-    //         'TimeUser' => $time_premium
-    //     ],
-    //         200);
-    // }
+    public function update(Request $request, $id)
+    {
+       $user = User::query()->find($id)->update($request->all());
+        //create thành công thì trả về 1token hợp lệ
+        return redirect()->route('users.index')->with('message','update success!');
+    }
 
     /**
      * Remove the specified resource from storage.
