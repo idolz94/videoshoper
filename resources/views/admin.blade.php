@@ -110,10 +110,11 @@
                             </select>
                     </div>
                     <div class="form-group">
+                        <label for="">Tỉnh Thành</label>
                         <select name="provinces" id="states"  class="form-control"></select>
                     </div>
                     <div class="form-group">
-                        <label for="">Tỉnh Thành</label>
+                        <label for="">Địa chỉ</label>
                         <input type="text" class="form-control" name="address"   id="address" placeholder="Nhập địa chỉ">
                     </div>
                       <div class="form-group">
